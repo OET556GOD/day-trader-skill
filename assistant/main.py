@@ -24,7 +24,8 @@ def build():
                               "OWNER_PHONE_NUMBER": settings.owner_number,
                               "PUBLIC_BASE_URL": settings.public_base_url}.items() if not v]
     if missing:
-        raise SystemExit("Missing settings: " + ", ".join(missing) + " (see .env.example)")
+        raise SystemExit("Missing settings: " + ", ".join(missing) + " (see .env.example).\n"
+                         "To just talk to it without a phone, run: python -m assistant.chat")
     tasks = TaskStore(settings.data_dir / "tasks.json")
     gmail = (Gmail(settings.gmail_client_id, settings.gmail_client_secret, settings.gmail_refresh_token)
              if settings.gmail_configured else None)

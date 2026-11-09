@@ -5,6 +5,7 @@
 """
 from __future__ import annotations
 
+import os
 import sys
 
 from .brain import Assistant
@@ -15,6 +16,10 @@ from .tasks import TaskStore
 
 def main() -> None:
     s = Settings.from_env()
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        sys.exit("No ANTHROPIC_API_KEY. Create a key at console.anthropic.com, then put\n"
+                 "ANTHROPIC_API_KEY=your-key in a file named .env in this folder.\n"
+                 "Run `python -m assistant.doctor` to check everything.")
     gmail = Gmail(s.gmail_client_id, s.gmail_client_secret, s.gmail_refresh_token) if s.gmail_configured else None
     bot = Assistant(s, TaskStore(s.data_dir / "tasks.json"), gmail)
     kind = sys.argv[1] if len(sys.argv) > 1 else "incoming"

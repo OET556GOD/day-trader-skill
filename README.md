@@ -23,9 +23,12 @@ Each call is one Claude conversation. Twilio turns your speech into text and pos
 ## Try it without a phone
 
 ```bash
-pip install -r requirements.txt
-export ANTHROPIC_API_KEY=...        # https://console.anthropic.com
-python -m assistant.chat morning    # type to it; same brain as the phone
+git clone -b phone-assistant https://github.com/OET556GOD/day-trader-skill.git phone-assistant
+cd phone-assistant
+python3 -m pip install -r requirements.txt     # Windows: py -m pip install -r requirements.txt
+# make a file named .env in this folder containing:  ANTHROPIC_API_KEY=your-key
+python3 -m assistant.doctor                    # checks everything, says what to fix
+python3 -m assistant.chat morning              # type to it; same brain as the phone
 ```
 
 ## Set up the real thing
